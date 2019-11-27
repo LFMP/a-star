@@ -51,7 +51,7 @@ def geraSucessores(no):
     right[i][j], right[i][j+1] = right[i][j+1], right[i][j]
     no.add_sucessor(inputAStar(right, [], [], no.g + 1, 0))
 
-    ##################### Trata a entrada e monta o tabuleiro #####################
+##################### Trata a entrada e monta o tabuleiro #####################
 
 
 def montaTabuleiro(entrada):
@@ -74,6 +74,21 @@ def h_linha_1(start):
       if (i[j] != final_config[indice][j]):
         foraDoLugar += 1
   return foraDoLugar
+
+
+def h_linha_2(start):
+  foraDaOrdem = 0
+  temp = []
+  for i in range(0, 4):
+    for j in range(0, 4):
+      temp.append(start[i][j])
+  for k in range(len(temp)):
+    if(k == 0):
+      pass
+    else:
+      if((temp[k] != (temp[k-1] + 1)) and temp[k-1] != 0):
+        foraDaOrdem += 1
+  return foraDaOrdem
 
 ##################### Principal #####################
 
