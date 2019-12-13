@@ -119,11 +119,14 @@ def h_linha_4(start):
   p = [0.4,0.2,0.4]
   return int(p[0]*h_linha_1(start) + p[1]*h_linha_2(start) + p[2]*h_linha_3(start))
 
+def h_linha_5(start):
+  return max(h_linha_1(start),h_linha_2(start),h_linha_3(start))
+
 ##################### Principal #####################
 
 
 def astar(start,selected):
-  h_linha = [h_linha_1,h_linha_2,h_linha_3,h_linha_4]
+  h_linha = [h_linha_1,h_linha_2,h_linha_3,h_linha_4,h_linha_5]
   T = str(final_config)
   A = F = {}
   h = []
@@ -156,7 +159,7 @@ def astar(start,selected):
 def main():
   entrada = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
   montaTabuleiro(entrada)
-  print(astar(entrada,2))
+  print(astar(entrada,4))
 
 
 if __name__ == '__main__':
