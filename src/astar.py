@@ -105,23 +105,29 @@ def h_linha_2(start):
         foraDaOrdem += 1
   return foraDaOrdem
 
-  def h_linha_3(start):
-    soma = 0
-    for i in range(4):
-      for j in range(4):
-        if(start[i][j]):
-          soma += distancia_manhatan(start[i][j],i,j)
+def h_linha_3(start):
+  soma = 0
+  for i in range(4):
+    for j in range(4):
+      if(start[i][j]):
+        soma += distancia_manhatan(start[i][j],i,j)
 
-    return soma
+  return soma
+
+def h_linha_4(start):
+  soma = 0
+  p = [0.4,0.2,0.4]
+  return int(p[0]*h_linha_1(start) + p[1]*h_linha_2(start) + p[2]*h_linha_3(start))
 
 ##################### Principal #####################
 
 
-def astar(start):
+def astar(start,selected):
+  h_linha = [h_linha_1,h_linha_2,h_linha_3,h_linha_4]
   T = str(final_config)
   A = F = {}
   h = []
-  A[str(start)] = inputAStar(start, [], [], 0, h_linha_1(start))
+  A[str(start)] = inputAStar(start, [], [], 0, h_linha[selected](start))
   heapq.heappush(h, (A[str(start)].f(), str(start)))
   v = A[str(start)]
   while A and (str(v.matriz) != T):
@@ -142,7 +148,7 @@ def astar(start):
       if(m_linha not in A and m_linha not in F):
         A[str(m[i].matriz)] = m[i]
         A[str(m[i].matriz)].pai = v
-        A[str(m[i].matriz)].h = h_linha_1(m[i].matriz)
+        A[str(m[i].matriz)].h = h_linha[selected](m[i].matriz)
         heapq.heappush(h, (A[str(m[i].matriz)].f(), str(m[i].matriz)))
   return v.g
 
@@ -150,7 +156,7 @@ def astar(start):
 def main():
   entrada = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
   montaTabuleiro(entrada)
-  print(astar(entrada))
+  print(astar(entrada,2))
 
 
 if __name__ == '__main__':
