@@ -66,6 +66,21 @@ def montaTabuleiro(entrada):
 
 ##################### Heurísticas #####################
 
+posicao_pecas = [
+  [3,3], [0,0], [0,1], [0,2],
+  [0,3], [1,0], [1,1], [1,2],
+  [1,3], [2,0], [2,1], [2,2],
+  [2,3], [3,0], [3,1], [3,2]]
+
+def distancia_manhatan(valor,i,j):
+  soma = 0
+  i_certo = posicao_pecas[valor][0]
+  j_certo = posicao_pecas[valor][1]
+
+  soma += int(abs(j - j_certo))
+  soma += int(abs(i - i_certo))
+
+  return soma
 
 def h_linha_1(start):
   foraDoLugar = 0
@@ -89,6 +104,15 @@ def h_linha_2(start):
       if((temp[k] != (temp[k-1] + 1)) and temp[k-1] != 0):
         foraDaOrdem += 1
   return foraDaOrdem
+
+  def h_linha_3(start):
+    soma = 0
+    for i in range(4):
+      for j in range(4):
+        if(start[i][j]):
+          soma += distancia_manhatan(start[i][j],i,j)
+
+    return soma
 
 ##################### Principal #####################
 
